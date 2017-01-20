@@ -63,7 +63,8 @@
       "arrow-parens": [
         "error",
         "as-needed"
-      ]
+      ],
+      "no-undef": "error"
     }
   }
 }

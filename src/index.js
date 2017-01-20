@@ -1,3 +1,4 @@
+/* globals Policies */
 import 'babel-polyfill';
 import debug from 'debug';
 import koa from 'koa';

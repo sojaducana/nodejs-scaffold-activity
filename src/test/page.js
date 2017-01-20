@@ -1,3 +1,4 @@
+/* globals app */
 import {expect} from 'chai';
 
 let request;
