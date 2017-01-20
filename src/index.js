@@ -9,6 +9,8 @@ import bootloaders from './bootloaders';
 import routes from './routes';
 import _ from 'lodash';
 import co from 'co';
+import render from 'koa-ejs';
+import path from 'path';
 
 let logger = debug('boot');
 let router = require('koa-router')();
@@ -19,6 +21,15 @@ global.Util = Util;
 _.merge(global, require('./error'));
 
 let app = koa();
+
+render(app, {
+  root: path.join(__dirname, '../views'),
+  layout: false,
+  viewExt: 'ejs',
+  cache: false,
+  debug: true
+});
+
 global.app = {};
 
 global.app.started = co(function* () {
@@ -74,7 +85,7 @@ global.app.started = co(function* () {
     .use(router.allowedMethods());
 
   yield new Promise(function(resolve) {
-    global.app.server = app.listen(process.env.HTTP_PORT, resolve);
+    global.app.server = app.listen(process.env.HTTP_PORT || 8080, resolve);
   });
   logger(`Server bound to port ${process.env.HTTP_PORT}.`);
 });
