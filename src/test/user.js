@@ -104,37 +104,29 @@ describe('User', function() {
       });
     });
 
-    // let params = {
-    //       username: 'zenoan',
-    //       email: 'roger.madjos@gmail.com'
-    //     };
+    let params = {
+          username: 'zenoan',
+          email: 'roger.madjos@gmail.com'
+        };
 
-    // let userId;
-    // let users = {};
-    // before(function* () {
-    //   let createResult = yield request
-    //     .post('/users')
-    //     .send(params);
-    //   userId = createResult.body.data._id;
+    let users = [];
+    before(function* () {
+      let user = new UserModel(params);
+      yield user.save();
 
-    //   let user = yield request
-    //       .get('/users/'+userId);
+      users = yield UserModel.find();
+    });
 
-    //   users[user._id] = user;
-
-    //   console.log(users);
-    // });
-
-    // describe('Given there is one user created', function() {
-    //   it('Should return size of 1', function* () {
-    //     yield request
-    //       .get('/users')
-    //       .expect(200)
-    //       .expect(res => {
-    //         expect(users.length).to.equal(res.body.data.length);
-    //       });
-    //   });
-    // });
+    describe('Given there is one user created', function() {
+      it('Should return same number of items', function* () {
+        yield request
+          .get('/users')
+          .expect(200)
+          .expect(res => {
+            expect(users.length).to.equal(res.body.data.length);
+          });
+      });
+    });
   });
 
   describe('DELETE /users/id', function() {
