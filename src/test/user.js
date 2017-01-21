@@ -70,10 +70,9 @@ describe('User', function() {
 
     let userId;
     before(function* () {
-      let createResult = yield request
-        .post('/users')
-        .send(params);
-      userId = createResult.body.data._id;
+      let user = new UserModel(params);
+      yield user.save();
+      userId = user._id;
     });
 
     describe('Given user is found', function() {
@@ -121,7 +120,9 @@ describe('User', function() {
     //   let user = yield request
     //       .get('/users/'+userId);
 
-    //   users.push(user);
+    //   users[user._id] = user;
+
+    //   console.log(users);
     // });
 
     // describe('Given there is one user created', function() {
@@ -130,7 +131,7 @@ describe('User', function() {
     //       .get('/users')
     //       .expect(200)
     //       .expect(res => {
-    //         expect(users.length == res.body.data.length);
+    //         expect(users.length).to.equal(res.body.data.length);
     //       });
     //   });
     // });
@@ -144,10 +145,9 @@ describe('User', function() {
 
     let userId;
     before(function* () {
-      let createResult = yield request
-        .post('/users')
-        .send(params);
-      userId = createResult.body.data._id;
+      let user = new UserModel(params);
+      yield user.save();
+      userId = user._id;
     });
 
     describe('Given user was deleted', function() {
