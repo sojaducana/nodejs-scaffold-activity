@@ -4,8 +4,7 @@
   "description": "Node.js project scaffold.",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf dist/",
-    "build": "npm run clean && babel --out-dir dist/ src/",
+    "build": "babel --out-dir dist/ src/",
     "eslint": "eslint src/",
     "start": "npm run build && node index.js",
     "mocha": "mocha --require co-mocha --require ./index --bail dist/test",
